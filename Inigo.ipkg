@@ -1,7 +1,7 @@
 package inigo
 
 modules = Client.Client
-depends = idris2, contrib
+depends = idris2, contrib, idrall
 
 sourcedir = ""
 

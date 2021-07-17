@@ -69,7 +69,7 @@ fetchDeps server includeDevDeps build pkg =
     Right sat <- lift $ satisfyAll versionNodes allDeps
       | Left err => reject ("Error satisfying contraints: " ++ err)
     log ("Sat: " ++ (show sat))
-    
+
     all $ map pullDep sat
     -- TODO: We should only build things which have changed
     -- TODO: How do we know what's changed?
@@ -87,9 +87,8 @@ fetchDeps server includeDevDeps build pkg =
           do
             pull server packageNS packageName (Just version)
             let src = inigoDepDir </> joinPath pkg
-            pkg <- readPackage $ src </> inigoTomlPath
+            pkg <- readPackage $ src
             pure (src, pkg)
-
 
 ||| Get all elems of the left list not present in the right list
 total
@@ -105,7 +104,7 @@ fetchExtraDeps devDeps build pkg = do
     getSubDirPkg : String -> List (String, Package) -> String -> Promise (List (String, Package))
     getSubDirPkg depDir pkgs subDir = do
         let srcDir = depDir </> subDir
-        pkg <- readPackage $ srcDir </> inigoTomlPath
+        pkg <- readPackage $ srcDir
         if any ((== pkg) . snd) pkgs
             then pure pkgs
             else pure ((srcDir, pkg) :: pkgs)
@@ -117,9 +116,9 @@ fetchExtraDeps devDeps build pkg = do
     genIPkg : String -> String -> Promise Package
     genIPkg dest subDir = do
         let buildDir = joinPath (".." <$ splitPath (dest </> subDir)) </> "build"
-        let toml = dest </> subDir </> inigoTomlPath
+        let pkgdir = dest </> subDir
         let iPkgFile = dest </> subDir </> inigoIPkgPath
-        pkg <- readPackage toml
+        pkg <- readPackage $ pkgdir
         fs_writeFile iPkgFile $ generateIPkg False (Just buildDir) pkg
         pure pkg
 
