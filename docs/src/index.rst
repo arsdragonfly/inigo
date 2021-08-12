@@ -19,6 +19,7 @@ Welcome to Inigo's documentation!
 
     tutorial
     reference
+    dhall
 
 Inigo is a package manager for Idris2 written in Idris2.
 It has a central package repository hosted on CloudFlare's CDN
