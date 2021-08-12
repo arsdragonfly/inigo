@@ -11,11 +11,7 @@ Note: this project is in an **alpha test state**. Expect breaking changes at thi
 
 First, you'll need to install `inigo`. Note: we currently only support Idris2's built in code-gens on the client, but we plan to add support for external code-gens soon.
 
-You can either download a release from [releases](https://github.com/hayesgm/inigo/releases) or bootstrap your own.
-
-### Downloading a Release
-
-We don't currently have any releases, but we may add them soon!
+We don't currently have any releases, but we may add them soon! Until then, follow the "Bootstrapping" instuctions bellow.
 
 <!--
 Download a release from the [releases](https://github.com/idris-community/inigo/releases) page. Install the file into your path and make sure it's executable.
@@ -36,7 +32,7 @@ curl -L https://github.com/idris-community/inigo/releases/download/0.0.1-alpha/i
 You can run the bootstrap Makefile command on Linux-type environments to bootstrap Inigo. Since Inigo depends on packages in Inigo, you'll need to bootstrap to get the components you need.
 
 ```bash
-git clone https://github.com/hayesgm/inigo
+git clone https://github.com/idris-community/inigo.git
 cd inigo && make bootstrap
 ```
 
@@ -96,7 +92,7 @@ Base.Color="~0.0.1"
 Base.Fmt="~0.0.1"
 ```
 
-This allows us to use the [Color](https://inigo.pm/packages/Color) and [Fmt](https://inigo.pm/packages/Fmt) libraries. Then install the libaries and build the dependencies with:
+This allows us to use the [Color](https://github.com/idris-community/inigo/tree/main/Base/Color) and [Fmt](https://github.com/idris-community/inigo/tree/main/Base/Fmt) libraries. Then install the libaries and build the dependencies with:
 
 ```bash
 inigo fetch-deps prod
