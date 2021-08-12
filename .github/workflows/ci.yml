@@ -13,7 +13,7 @@ env:
   SCHEME: scheme
 
 jobs:
-  build-idris2-with-api: 
+  build-idris2-with-api:
     runs-on: ubuntu-latest
     env:
       IDRIS2_CG: chez
@@ -47,6 +47,19 @@ jobs:
           make clean
           make all && make install
           make install-api
+
+      - name: Checkout idrall repo
+        uses: actions/checkout@v2
+        with:
+          repository: alexhumphreys/idrall
+          ref: '65796e03d94fe0063de643461096e69341e88ec0'
+          path: idrall
+      - name: Build/Install Idrall
+        if: steps.cache-idris2-with-api.outputs.cache-hit != 'true'
+        working-directory: idrall
+        run: |
+          make install
+
       - name: Artifact Idris2 with API
         uses: actions/upload-artifact@v2
         with:
