@@ -10,22 +10,22 @@ import Toml.Lexer
 
 import public Toml.Tokens
 
-comment : Grammar TomlToken True (Maybe (List String, Value))
+comment : Grammar _ TomlToken True (Maybe (List String, Value))
 comment =
   map (const Nothing) (match Comment)
 
-whitespace : Grammar TomlToken True (Maybe (List String, Value))
+whitespace : Grammar _ TomlToken True (Maybe (List String, Value))
 whitespace =
   map (const Nothing) (match Whitespace)
 
-optWhitespace : Grammar TomlToken False ()
+optWhitespace : Grammar _ TomlToken False ()
 optWhitespace = ignore $ optional $ match Whitespace
 
-keyword : Grammar TomlToken True (List String)
+keyword : Grammar _ TomlToken True (List String)
 keyword =
   forget <$> sepBy1 (match Dot) (match Keyword <|> match StringLit <|> (map show $ match Number))
 
-heading : Grammar TomlToken True (List String)
+heading : Grammar _ TomlToken True (List String)
 heading =
   do
     match LeftBracket
@@ -36,7 +36,7 @@ heading =
     pure key
 
 
-doubleHeading : Grammar TomlToken True (List String)
+doubleHeading : Grammar _ TomlToken True (List String)
 doubleHeading =
   do
     match LeftBracket
@@ -48,24 +48,24 @@ doubleHeading =
     match RightBracket
     pure key
 
-doubleHeadingOf : List String -> Grammar TomlToken True String
+doubleHeadingOf : List String -> Grammar _ TomlToken True String
 doubleHeadingOf lookup =
   do
     key <- doubleHeading
-    the (Grammar _ False _) $
+    the (Grammar _ _ False _) $
       if key == lookup
         then pure "hi"
         else fail "mismatched double heading"
 
-str : Grammar TomlToken True Value
+str : Grammar _ TomlToken True Value
 str =
   map Str (match StringLit)
 
-num : Grammar TomlToken True Value
+num : Grammar _ TomlToken True Value
 num =
   map Num (match Number)
 
-optSpacing : Grammar TomlToken True a -> Grammar TomlToken True a
+optSpacing : Grammar state TomlToken True a -> Grammar state TomlToken True a
 optSpacing inner =
   do
     optWhitespace
@@ -74,7 +74,7 @@ optSpacing inner =
     pure res
 
 mutual
-  list : Grammar TomlToken True Value
+  list : Grammar state TomlToken True Value
   list =
     do
       ignore $ match LeftBracket
@@ -82,11 +82,11 @@ mutual
       ignore $ match RightBracket
       pure (Lst values)
 
-  value : Grammar TomlToken True Value
+  value : Grammar _ TomlToken True Value
   value =
     optSpacing $ str <|> num <|> list
 
-kv : Grammar TomlToken True (Maybe (List String, Value))
+kv : Grammar _ TomlToken True (Maybe (List String, Value))
 kv =
   do
     key <- keyword
@@ -97,7 +97,7 @@ kv =
     pure $ Just (key, v)
 
 mutual
-  subtable : Grammar TomlToken True (List (List String, Value))
+  subtable : Grammar _ TomlToken True (List (List String, Value))
   subtable =
     do
       key <- doubleHeading
@@ -106,13 +106,13 @@ mutual
       let val = ArrTab $ forget tomls
       pure [(key, val)]
 
-  emptyHeading : Grammar TomlToken True (List (List String, Value))
+  emptyHeading : Grammar _ TomlToken True (List (List String, Value))
   emptyHeading =
     do
       ignore heading
       pure []
 
-  kvs : Grammar TomlToken True (List (List String, Value))
+  kvs : Grammar _ TomlToken True (List (List String, Value))
   kvs =
     do
       key <- option [] heading
@@ -122,18 +122,18 @@ mutual
         <|> whitespace)
       pure $ map (\(k, v) => (key ++ k, v)) (mapMaybe id $ forget inner)
 
-  simpleToml : List String -> Grammar TomlToken False Toml
+  simpleToml : List String -> Grammar _ TomlToken False Toml
   simpleToml pre =
     do
       res <- map concat (many (kvs <|> emptyHeading))
       pure $ map (mapFst $ dropPrefix pre) res
 
-  toml : Grammar TomlToken False Toml
+  toml : Grammar _ TomlToken False Toml
   toml =
     map concat (many (subtable <|> kvs <|> emptyHeading))
 
 export
-parseTomlToks : List TomlToken -> Maybe Toml
+parseTomlToks : List $ WithBounds TomlToken -> Maybe Toml
 parseTomlToks toks = case parse toml toks of
                       Right (j, []) => Just j
                       _ => Nothing

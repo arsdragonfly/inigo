@@ -3,9 +3,11 @@ module Markdown
 import Markdown.Lexer
 import Markdown.Parser
 
+import Text.Bounded
+
 import public Markdown.Data
 
-%default total
+%default covering
 
 ||| Parse a Markdown string
 export

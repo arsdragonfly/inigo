@@ -6,6 +6,8 @@ import Extra.String
 import Toml.Parser
 import Toml.Lexer
 
+import Text.Bounded
+
 import public Toml.Data
 
 ||| Parse a Toml document

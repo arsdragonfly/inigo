@@ -32,8 +32,8 @@ tomlTokenMap = toTokenMap $
   ]
 
 public export
-lexToml : String -> Maybe (List TomlToken)
+lexToml : String -> Maybe (List $ WithBounds TomlToken)
 lexToml str
   = case lex tomlTokenMap str of
-         (tokens, _, _, "") => Just $ map TokenData.tok tokens
+         (tokens, _, _, "") => Just $ tokens
          _ => Nothing

@@ -4,6 +4,8 @@ import SemVar.Lexer
 import SemVar.Parser
 import public SemVar.Data
 
+import Text.Bounded
+
 ||| Parse a Version
 export
 parseVersion : String -> Maybe Version

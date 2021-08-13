@@ -28,8 +28,8 @@ semVarTokenMap = toTokenMap $
   ]
 
 public export
-lexSemVar : String -> Maybe (List SemVarToken)
+lexSemVar : String -> Maybe (List $ WithBounds SemVarToken)
 lexSemVar str
   = case lex semVarTokenMap str of
-         (tokens, _, _, "") => Just $ map TokenData.tok tokens
+         (tokens, _, _, "") => Just $ tokens
          _ => Nothing

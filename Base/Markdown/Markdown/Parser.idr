@@ -14,7 +14,7 @@ import public Markdown.Tokens
 
 mutual
   private
-  markdown : Grammar MarkdownToken False Markdown
+  markdown : Grammar _ MarkdownToken False Markdown
   markdown =
     do
       els <- many (
@@ -25,7 +25,7 @@ mutual
       pure $ Doc (mapMaybe id els)
 
   private
-  inline : Grammar MarkdownToken True Inline
+  inline : Grammar _ MarkdownToken True Inline
   inline =
     (
           text
@@ -40,11 +40,11 @@ mutual
     )
 
   -- TODO: Handle other incomplete parts
-  parts : Grammar MarkdownToken True Inline
+  parts : Grammar _ MarkdownToken True Inline
   parts =
     map (const $ Text "!") (match ImageSym)
 
-  wrapInline : MarkdownTokenKind -> (List Inline -> a) -> Grammar MarkdownToken True a
+  wrapInline : MarkdownTokenKind -> (List Inline -> a) -> Grammar _ MarkdownToken True a
   wrapInline sym tok =
     do
       ignore $ match sym
@@ -53,7 +53,7 @@ mutual
       pure $ tok (forget contents)
 
   private
-  header : Grammar MarkdownToken True Block
+  header : Grammar _ MarkdownToken True Block
   header =
     do
       level <- match HeadingSym
@@ -62,18 +62,18 @@ mutual
       blockTerminal
       pure $ Header level contents
 
-  blockTerminal : Grammar MarkdownToken False ()
+  blockTerminal : Grammar _ MarkdownToken False ()
   blockTerminal =
     (map (const ()) $ (some newLine)) <|>
     eof
 
   private
-  newLine : Grammar MarkdownToken True ()
+  newLine : Grammar _ MarkdownToken True ()
   newLine =
     map (const ()) (match NewLine)
 
   private
-  paragraph : Grammar MarkdownToken True Block
+  paragraph : Grammar _ MarkdownToken True Block
   paragraph =
     do
       contents <- some inline
@@ -81,32 +81,32 @@ mutual
       pure $ Paragraph (forget contents)
 
   private
-  text : Grammar MarkdownToken True Inline
+  text : Grammar _ MarkdownToken True Inline
   text =
     map Text (match MdText)
 
   private
-  pre : Grammar MarkdownToken True Inline
+  pre : Grammar _ MarkdownToken True Inline
   pre =
     map Pre (match MdPre)
 
   private
-  codeBlock : Grammar MarkdownToken True Inline
+  codeBlock : Grammar _ MarkdownToken True Inline
   codeBlock =
     map (uncurry CodeBlock) (match MdCodeBlock)
 
   private
-  bold : Grammar MarkdownToken True Inline
+  bold : Grammar _ MarkdownToken True Inline
   bold =
     wrapInline BoldSym Bold
 
   private
-  italics : Grammar MarkdownToken True Inline
+  italics : Grammar _ MarkdownToken True Inline
   italics =
     wrapInline ItalicsSym Italics
 
   private
-  image : Grammar MarkdownToken True Inline
+  image : Grammar _ MarkdownToken True Inline
   image =
     do
       match ImageSym
@@ -114,17 +114,17 @@ mutual
       buildImage r
 
   private
-  buildImage : (String, String) -> Grammar MarkdownToken False Inline
+  buildImage : (String, String) -> Grammar _ MarkdownToken False Inline
   buildImage (alt, src) =
     pure $ Image alt src
 
   private
-  link : Grammar MarkdownToken True Inline
+  link : Grammar _ MarkdownToken True Inline
   link =
     map (\(href, desc) => Link href desc) (match MdLink)
 
   private
-  html : Grammar MarkdownToken True Inline
+  html : Grammar _ MarkdownToken True Inline
   html =
     do
       openTag <- match HtmlOpenTag
@@ -133,21 +133,21 @@ mutual
       pure $ Html openTag contents
 
   private
-  closer : String -> Grammar MarkdownToken True ()
+  closer : String -> Grammar _ MarkdownToken True ()
   closer tag =
     do
       closeTag <- match HtmlCloseTag
       checkTag closeTag tag
 
   private
-  checkTag : String -> String -> Grammar MarkdownToken False ()
+  checkTag : String -> String -> Grammar _ MarkdownToken False ()
   checkTag x y =
     if x == y
       then pure ()
       else fail "tag mismatch"
 
 export
-parseMarkdown : List MarkdownToken -> Maybe Markdown
+parseMarkdown : List (WithBounds MarkdownToken) -> Maybe Markdown
 parseMarkdown toks = case parse markdown toks of
                       Right (j, []) => Just j
                       _ => Nothing
