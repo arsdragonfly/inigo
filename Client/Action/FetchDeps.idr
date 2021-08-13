@@ -87,7 +87,7 @@ fetchDeps server includeDevDeps build pkg =
           do
             pull server packageNS packageName (Just version)
             let src = inigoDepDir </> joinPath pkg
-            pkg <- readPackage $ src
+            pkg <- readPackage src
             pure (src, pkg)
 
 ||| Get all elems of the left list not present in the right list
@@ -104,7 +104,7 @@ fetchExtraDeps devDeps build pkg = do
     getSubDirPkg : String -> List (String, Package) -> String -> Promise (List (String, Package))
     getSubDirPkg depDir pkgs subDir = do
         let srcDir = depDir </> subDir
-        pkg <- readPackage $ srcDir
+        pkg <- readPackage srcDir
         if any ((== pkg) . snd) pkgs
             then pure pkgs
             else pure ((srcDir, pkg) :: pkgs)
