@@ -118,7 +118,7 @@ fetchExtraDeps devDeps build pkg = do
         let buildDir = joinPath (".." <$ splitPath (dest </> subDir)) </> "build"
         let pkgdir = dest </> subDir
         let iPkgFile = dest </> subDir </> inigoIPkgPath
-        pkg <- readPackage $ pkgdir
+        pkg <- readPackage pkgdir
         fs_writeFile iPkgFile $ generateIPkg False (Just buildDir) pkg
         pure pkg
 

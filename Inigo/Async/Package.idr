@@ -8,7 +8,6 @@ import Inigo.Async.Promise
 import Inigo.Package.Package
 import Inigo.Package.PackageDhall
 import Inigo.Package.PackageIndex
-import Inigo.Paths
 
 ||| Gets a package from the "packages" KV
 export
@@ -44,7 +43,7 @@ packageFilePath src =
          (True, False) => pure $ TomlPath tomlPath
          (False, True) => pure $ DhallPath dhallPath
          (True, True) => reject "Conflict: both Inigo.toml and Inigo.dhall found"
-         (False, False) => reject "Inigo.toml not found"
+         (False, False) => reject "Inigo.toml or Inigo.dhall file not found"
 
 parseFile : InigoPackagePath -> Promise Package
 parseFile (TomlPath path) = do

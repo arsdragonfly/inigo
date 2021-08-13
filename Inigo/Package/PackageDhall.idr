@@ -50,8 +50,8 @@ Show DepPackage where
     "{ ns = \{show ns}, name = \{show name}, requirement = \{show requirement} }"
 
 public export
-record PackageDhall' where
-  constructor MkPackageDhall'
+record PackageDhall where
+  constructor MkPackageDhall
   depends : List String
   deps : List (DepPackage)
   description : Maybe String
@@ -68,13 +68,13 @@ record PackageDhall' where
   version : String
   localDeps : List String
   gitDeps : List GitDep
-%runElab (deriveFromDhall Record `{ PackageDhall' })
+%runElab (deriveFromDhall Record `{ PackageDhall })
 
 depPackageDhallType : String
 depPackageDhallType = "{ name : Text, ns : Text, requirement : Text }"
 
-Show PackageDhall' where
-  show (MkPackageDhall' {depends, deps, description, devDeps, executable, license, link, main, modules, ns, package, readme, sourcedir, version, localDeps, gitDeps}) =
+Show PackageDhall where
+  show (MkPackageDhall {depends, deps, description, devDeps, executable, license, link, main, modules, ns, package, readme, sourcedir, version, localDeps, gitDeps}) =
     """
     { depends = \{show depends} : List Text
     , deps = \{show deps} : List \{ depPackageDhallType }
@@ -97,15 +97,15 @@ Show PackageDhall' where
     }
     """
 
-parsePackageDhall' : String -> IO $ Either String PackageDhall'
+parsePackageDhall' : String -> IO $ Either String PackageDhall
 parsePackageDhall' path = do
-  Right package <- liftIOEither $ deriveFromDhallString {ty=PackageDhall'} path
+  Right package <- liftIOEither $ deriveFromDhallString {ty=PackageDhall} path
     | Left err => do
         pure $ Left $ show err
   pure $ Right package
 
-inigoPackageFromDhall : PackageDhall' -> Either String Package
-inigoPackageFromDhall (MkPackageDhall' {depends, deps, description, devDeps, executable, license, link, main, modules, ns, package, readme, sourcedir, version, localDeps, gitDeps}) =
+inigoPackageFromDhall : PackageDhall -> Either String Package
+inigoPackageFromDhall (MkPackageDhall {depends, deps, description, devDeps, executable, license, link, main, modules, ns, package, readme, sourcedir, version, localDeps, gitDeps}) =
   let packageVersion = !(versionFromDhall version)
       packageDeps = !(traverse depFromDhall deps)
       packageDevDeps = !(traverse depFromDhall devDeps)
@@ -152,10 +152,3 @@ parsePackageDhall : String -> Promise $ Either String Package
 parsePackageDhall x = do
   Right package <- liftIO $ parsePackageDhall' x | Left err => pure $ Left err
   pure $ inigoPackageFromDhall package
-
-doitp : String -> IO ()
-doitp x = do
-    Right package <- liftIO $ parsePackageDhall' x
-      | Left err => putStrLn $ show err
-    let p = inigoPackageFromDhall package
-    putStrLn $ show p
