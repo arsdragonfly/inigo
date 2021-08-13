@@ -109,7 +109,7 @@ inigoPackageFromDhall (MkPackageDhall {depends, deps, description, devDeps, exec
   let packageVersion = !(versionFromDhall version)
       packageDeps = !(traverse depFromDhall deps)
       packageDevDeps = !(traverse depFromDhall devDeps)
-      packageExtraDepsFromLocal = MkExtraDep SubDir () "TODO unused?" localDeps
+      packageExtraDepsFromLocal = MkExtraDep SubDir () "." localDeps
       packageExtraDepsFromGit = map extraDepFromGit gitDeps
   in
   pure $ MkPackage
