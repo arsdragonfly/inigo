@@ -16,3 +16,8 @@ Server/InigoStatic/Local/*
 
 # editor
 .vscode
+
+# golden tests
+!golden/tests.ipkg
+output
+failures

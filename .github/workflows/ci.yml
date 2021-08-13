@@ -86,4 +86,7 @@ jobs:
         run: |
           make bootstrap
         shell: bash
-      # TODO: test
+      - name: golden tests
+        run: |
+          make golden
+        shell: bash
