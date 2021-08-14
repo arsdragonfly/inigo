@@ -1,0 +1,3 @@
+1/1: Building MyPkg (./MyPkg.idr)
+Executing MyPkg with args []...
+Hello from MyPkg
