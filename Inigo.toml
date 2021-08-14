@@ -4,7 +4,7 @@ version="0.0.1"
 
 description="Inigo Package Manager"
 modules=["Client.Client"]
-depends=["idris2", "base", "contrib", "prelude", "lib"]
+depends=["idris2", "base", "contrib", "prelude", "lib", "idrall"]
 main="Client.Client"
 executable="inigo"
 

@@ -12,6 +12,7 @@ Server/InigoStatic/Local/*
 !*Bootstrap.ipkg
 !Inigo.ipkg
 !Server/InigoServer/InigoServer.ipkg
+*.idr~
 
 # editor
 .vscode

@@ -7,6 +7,10 @@ inigoTomlPath : String
 inigoTomlPath = "Inigo.toml"
 
 export
+inigoDhallPath : String
+inigoDhallPath = "Inigo.dhall"
+
+export
 inigoIPkgPath : String
 inigoIPkgPath = "Inigo.ipkg"
 
