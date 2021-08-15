@@ -16,7 +16,7 @@ inigoIPkgPath = "Inigo.ipkg"
 
 export
 inigoWorkDir : String
-inigoWorkDir = ".inigo-work"
+inigoWorkDir = "./.inigo-work"
 
 export
 inigoDepDir : String
