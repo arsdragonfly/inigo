@@ -1,7 +1,7 @@
 include config.mk
 
 all : inigo
-.PHONY : bootstrap server inigo install static local-server deploy-init deploy test clean distclean
+.PHONY : bootstrap server inigo install static local-server deploy-init deploy test clean distclean golden
 
 define build_base_dep
 	(cd Base/$(1) && idris2 --build Bootstrap.ipkg --build-dir ../../build)
@@ -59,6 +59,12 @@ test :
 
 clean :
 	idris2 --clean Inigo.ipkg
+
+testbin :
+	${MAKE} -C golden testbin
+
+golden : testbin
+	${MAKE} -C golden only=$(only)
 
 distclean :
 	$(RM) -r build

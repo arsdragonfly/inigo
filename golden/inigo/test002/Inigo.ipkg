@@ -1,0 +1,11 @@
+package MyPkg
+
+
+
+
+sourcedir = "."
+builddir = "build"
+
+version = 9.0.0
+main = MyPkg
+executable = MyPkg
