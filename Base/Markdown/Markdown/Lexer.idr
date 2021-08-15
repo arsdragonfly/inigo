@@ -28,7 +28,7 @@ markdownTokenMap = toTokenMap $
   ]
 
 ||| Combine consecutive `MdText` nodes into one
-combineText : List $ WithBounds MarkdownToken -> List $ WithBounds MarkdownToken
+combineText : List (WithBounds MarkdownToken) -> List (WithBounds MarkdownToken)
 combineText [] = []
 combineText (el :: rest) =
   let

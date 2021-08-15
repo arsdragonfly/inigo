@@ -1,3 +1,6 @@
 [submodule "Idris2"]
 	path = Idris2
 	url = https://github.com/idris-lang/Idris2
+[submodule "idrall"]
+	path = idrall
+	url = https://github.com/alexhumphreys/idrall

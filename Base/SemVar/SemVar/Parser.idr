@@ -143,13 +143,13 @@ requirement =
   )
 
 export
-parseVersionToks : List $ WithBounds SemVarToken -> Maybe Version
+parseVersionToks : List (WithBounds SemVarToken) -> Maybe Version
 parseVersionToks toks = case parse version toks of
                       Right (j, []) => Just j
                       _ => Nothing
 
 export
-parseRequirementToks : List $ WithBounds SemVarToken -> Maybe Requirement
+parseRequirementToks : List (WithBounds SemVarToken) -> Maybe Requirement
 parseRequirementToks toks = case parse requirement toks of
                       Right (j, []) => Just j
                       _ => Nothing

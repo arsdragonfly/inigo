@@ -133,7 +133,7 @@ mutual
     map concat (many (subtable <|> kvs <|> emptyHeading))
 
 export
-parseTomlToks : List $ WithBounds TomlToken -> Maybe Toml
+parseTomlToks : List (WithBounds TomlToken) -> Maybe Toml
 parseTomlToks toks = case parse toml toks of
                       Right (j, []) => Just j
                       _ => Nothing
