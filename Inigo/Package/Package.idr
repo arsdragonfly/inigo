@@ -165,7 +165,7 @@ getDepsPackage : Bool -> Package -> List String
 getDepsPackage dev pkg =
     let deps : List (List String, Requirement)
         deps = (if dev then pkg.devDeps else []) ++ pkg.deps
-    in depsOnto pkg.extraDeps $ map (joinPath . Builtin.fst) deps
+    in depsOnto pkg.extraDeps $ map ((inigoDepDir </>) . joinPath . Builtin.fst) deps
     where
     depsOnto : List ExtraDep -> List String -> List String
     depsOnto [] deps = deps
