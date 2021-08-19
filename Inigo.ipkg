@@ -1,9 +1,10 @@
-package inigo
+package Inigo
 
-modules = Client.Client
-depends = idris2, contrib, idrall
+modules = Client.Client 
+depends = idrall, lib, prelude, contrib, base, idris2 
 
 sourcedir = ""
+builddir = "build"
 
 version = 0.0.1
 main = Client.Client

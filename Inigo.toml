@@ -18,3 +18,9 @@ Base.Toml="^0.0.1"
 
 [dev-deps]
 Base.IdrTest="^0.0.1" # Note: Dev dependency
+
+[[extra-dep]]
+download="git"
+commit="d96c1240d0415208b1d32e7ae0930eb63c69d9d7"
+url="https://github.com/alexhumphreys/idrall.git"
+sub-folders=[""]
