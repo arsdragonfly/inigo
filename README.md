@@ -70,7 +70,7 @@ You can read more about namespaces under the publishing a package section below.
 
 This will create a skeleton app with an `Inigo.toml`. This configuration file will allow you to specify dependencies and automatically generates your Idris `ipkg` file for you.
 
-Note: it is also possible to use an `Inigo.dhall` file, see `src/docs/dhall.rst` for more details.
+Note: it is also possible to use an `Inigo.dhall` file, see [the docs](docs/src/dhall.rst) for more details.
 
 You can build and run your app by calling:
 

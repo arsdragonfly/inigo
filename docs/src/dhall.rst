@@ -28,25 +28,24 @@ Inigo packages can be configured with a `Inigo.dhall` file, as opposed to the de
       ] : List { url : Text, commit : Text, subDirs : List Text }
     }
 
-``ns`` stands for namespace and it's used if you publish to the central package repository.
-``package`` is the name of your package.
-``version`` is the version of your package.
-``sourcedir`` is the path to your modules.
-``description`` a brief description of your package.
-``executable`` the name of the executable your project compiles to.
-``modules`` is a list of all the modules your package exports.
-``readme`` path to your package's README file.
-``license`` the license your package is published under.
-``deps`` describes your packages dependencies on the central package repository.
-``devDeps`` same as ``deps`` but only used during development, not needed for the final release.
-``localDeps`` package dependencies that are defined in your repository.
-``gitDeps`` package dependencies that are hosted remotely on github.
+- ``ns`` stands for namespace and it's used if you publish to the central package repository.
+- ``package`` is the name of your package.
+- ``version`` is the version of your package.
+- ``sourcedir`` is the path to your modules.
+- ``description`` a brief description of your package.
+- ``executable`` the name of the executable your project compiles to.
+- ``modules`` is a list of all the modules your package exports.
+- ``readme`` path to your package's README file.
+- ``license`` the license your package is published under.
+- ``deps`` describes your packages dependencies on the central package repository.
+- ``devDeps`` same as ``deps`` but only used during development, not needed for the final release.
+- ``localDeps`` package dependencies that are defined in your repository.
+- ``gitDeps`` package dependencies that are hosted remotely on github.
 
-You can use the example file `docs/src/Inigo.dhall` to get started.
+You can use the `example file <Inigo.dhall>`_ to get started.
 
-Dhall support is provided by the package
-https://github.com/alexhumphreys/idrall, so any issues you run into with Dhall
-parsing/evaluating should be filed there. It is still in alpha so expect some
-rough edges.
+Dhall support is provided by the `Idrall package <https://github.com/alexhumphreys/idrall>`_,
+so any issues you run into with Dhall parsing/evaluating should be filed there. It is still
+in alpha so expect some rough edges.
 
-For more information on the Dhall language, visit https://dhall-lang.org.
+For more information on the Dhall language, visit `the Dhall website <https://dhall-lang.org>`_.
