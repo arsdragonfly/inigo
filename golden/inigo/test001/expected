@@ -8,7 +8,7 @@ usage: Inigo <command> <...args>
 	exec <code-gen=node> -- ...args: Execute program with given args
 	extract <archive_file> <out_path>: Extract a given archive to directory
 	fetch-deps <server>: Fetch and build all deps (opts: --no-build, --dev)
-	init <namespace> <package>: Initialize a new project with given namespace and package name
+	init <namespace> <package> <template.inigo>: Initialize a new project with given namespace and package name
 	login <server>: Login to an account
 	pull <server> <package_ns> <package_name> <version?>: Pull a package from remote
 	push <server> <pkg_file>: Push a package to remote

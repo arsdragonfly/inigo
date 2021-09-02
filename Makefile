@@ -64,6 +64,7 @@ test :
 
 clean :
 	idris2 --clean Inigo.ipkg
+	idris2 --clean idrall/idrall.ipkg
 
 testbin :
 	${MAKE} -C golden testbin
@@ -71,5 +72,5 @@ testbin :
 golden : testbin
 	${MAKE} -C golden only=$(only)
 
-distclean :
+distclean : clean
 	$(RM) -r build

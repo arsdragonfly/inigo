@@ -22,3 +22,4 @@ Server/InigoStatic/Local/*
 !golden/tests.ipkg
 output
 failures
+golden/**/Inigo.ipkg

@@ -18,7 +18,7 @@ buildIPkg : String -> Promise ()
 buildIPkg path =
   do
     log (fmt "Compiling %s" (path </> inigoIPkgPath))
-    debugLog "\{path}$ idris2 --build \{inigoIPkgPath}"
+    debugLog "[\{path}]$ idris2 --build \{inigoIPkgPath}"
     0 <- system "idris2" ["--build", inigoIPkgPath] (Just path) False True
         | errno => reject "idris2 build error: \{show errno}"
     log (fmt "Compiled %s" (path </> inigoIPkgPath))

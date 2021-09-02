@@ -1,0 +1,53 @@
+\{file Inigo.toml}
+ns = "\{Package}"
+package= ""
+version= "0.0.1"
+
+description = ""
+link = ""
+readme = ""
+modules = ["Main"]
+depends = []
+license = ""
+main = "Main"
+executable = "\{Package}"
+
+[deps]
+
+[dev-deps]
+Base.IdrTest = "~0.0.1"
+
+\{file Main.idr}
+module Main
+
+main : IO ()
+main = do
+    putStrLn "Hello from \{Namespace}.\{Package}"
+
+\{file Test/Test.idr}
+module Test.Test
+
+import IdrTest.Test
+import IdrTest.Expectation
+
+import Main
+
+export
+suite : Test
+suite =
+  describe "\{Package} tests"
+    [ test "1 == 1" (\\_ => assertEq 1 1 )
+    ]
+
+\{file Test/Suite.idr}
+module Test.Suite
+
+import IdrTest.Test
+
+import Test.Test
+
+suite : IO ()
+suite = do
+  runSuites
+    [ Test.Test.suite
+    ]
