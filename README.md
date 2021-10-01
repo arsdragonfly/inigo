@@ -54,7 +54,7 @@ make install
 You can specify the install location by setting `INSTALL_DIR` in `config.mk` or on the command line
 
 ```bash
-make install INSTALL_DIR="/usr/local/bin/
+make install INSTALL_DIR="/usr/local/bin/"
 ```
 
 ## Create an app
