@@ -20,14 +20,14 @@ mutual
 toList : Toml -> List (List String, Value)
 toList = id
 
-export
+export covering
 Show Value where
   show (Str str) = (quote str)
   show (Num x) = (show x)
   show (Lst els) = (showList show els)
   show (ArrTab t) = show t
 
-export
+export covering
 Eq Value where
   (Str s0) == (Str s1) = s0 == s1
   (Num x0) == (Num x1) = x0 == x1

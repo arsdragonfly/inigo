@@ -51,19 +51,19 @@ mutual
   showInline (Image alt src) = "Image " ++ alt ++ " " ++ src
   showInline (Html tag inline) = "HTML <" ++ tag ++ "> " ++ (showInlines inline)
 
-export
+export covering
 Show Inline where
   show = showInline
 
-export
+export covering
 Show Block where
   show = showBlock
 
-export
+export covering
 Show Markdown where
   show (Doc blocks) = showBlocks blocks
 
-export
+export covering
 Eq Inline where
   (Text text0) == (Text text1) = text0 == text1
   (Pre text0) == (Pre text1) = text0 == text1
@@ -75,12 +75,12 @@ Eq Inline where
   (Html tag0 inline0) == (Html tag1 inline1) = tag0 == tag1 && inline0 == inline1
   _ == _ = False
 
-export
+export covering
 Eq Block where
   (Header level0 inline0) == (Header level1 inline1) = level0 == level1 && inline0 == inline1
   (Paragraph inline0) == (Paragraph inline1) = inline0 == inline1
   _ == _ = False
 
-export
+export covering
 Eq Markdown where
   (Doc a) == (Doc b) = a == b

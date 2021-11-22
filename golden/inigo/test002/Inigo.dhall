@@ -1,7 +1,7 @@
 { ns = "MyNameSpace"
 , package = "MyPkg"
 , version = "9.0.0"
-, sourcedir = "."
+, sourcedir = "./."
 , description = Some "a random test package"
 , executable = Some "MyPkg"
 , modules = [] : List Text
