@@ -34,8 +34,8 @@ You can run the bootstrap Makefile command on Linux-type environments to bootstr
 
 ```bash
 git clone https://github.com/idris-community/inigo.git
-git submodule update --init idrall
-cd inigo && make bootstrap
+cd inigo
+git submodule update --init idrall && make bootstrap
 ```
 
 If all goes well, you'll want to make inigo available in your path, e.g. via:
