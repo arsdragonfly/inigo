@@ -59,11 +59,11 @@ make install INSTALL_DIR="/usr/local/bin/"
 
 ## Create an app
 
-Let's create a new app and use Inigo to manage our packages:
+Let's create a new app and use Inigo to manage our packages, using included template:
 
 ``` bash
 mkdir MyApp && cd MyApp
-inigo init MyNamespace MyApp
+inigo init MyNamespace MyApp ../inigo/templates/baseWithTests.inigo
 ```
 
 You can read more about namespaces under the publishing a package section below.

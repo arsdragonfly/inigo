@@ -9,7 +9,7 @@
 , readme = None Text
 , license = None Text
 , link = None Text
-, main = None Text
+, main = Some "Main"
 , depends = [] : List Text
 , deps = [] : List Text
 , devDeps = [] : List Text
